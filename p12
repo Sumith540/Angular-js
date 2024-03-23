@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="dateApp">
+<head>
+<title>Date Display App</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+</head>
+<body ng-controller="DateController">
+<h1>Date Display App</h1>
+<p>Current Date: {{ currentDate }}</p>
+<p>Formatted Date (short): {{ currentDate | date:'short' }}</p>
+<p>Formatted Date (medium): {{ currentDate | date:'medium' }}</p>
+<p>Formatted Date (long): {{ currentDate | date:'long' }}</p>
+<p>Formatted Date (yyyy-MM-dd): {{ currentDate | date:'yyyy-MM-dd' }}</p>
+<p>Formatted Date (EEEE, MMMM d, y): {{ currentDate | date:'EEEE, MMMM d, y' }}</p>
+<script>
+var app = angular.module('dateApp', []);
+app.controller('DateController', function ($scope) {
+$scope.currentDate = new Date();
+});
+</script>
+</body>
+</html>
