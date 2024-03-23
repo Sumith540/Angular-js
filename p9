@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Employee List</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<style>
+table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 20px;
+}
+th, td {
+border: 1px solid #ddd;
+padding: 8px;
+text-align: left;
+}
+input {
+margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+<div ng-app="employeeApp" ng-controller="employeeCtrl">
+<h2>Employee List</h2>
+<input type="text" ng-model="searchName" placeholder="Search by Name">
+<input type="number" ng-model="searchSalary" placeholder="Search by Salary">
+<table>
+<tr>
+<th>Name</th>
+<th>Salary</th>
+</tr>
+<tr ng-repeat="employee in employees | filter: {name: searchName, salary: searchSalary}">
+<td>{{employee.name}}</td>
+<td>{{employee.salary | currency}}</td>
+</tr>
+</table>
+</div>
+<script>
+var app = angular.module('employeeApp', []);
+app.controller('employeeCtrl', function ($scope) {
+$scope.employees = [
+{ name: 'John Doe', salary: 50000 },
+{ name: 'Jane Doe', salary: 60000 },
+{ name: 'Bob Smith', salary: 75000 },
+{ name: 'Alice Johnson', salary: 80000 },
+// Add more employees as needed
+];
+});
+</script>
+</body>
+</html>
