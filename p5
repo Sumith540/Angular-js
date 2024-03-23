@@ -23,3 +23,23 @@
 <td>{{ student.cgpa }}</td>
 </tr>
 </table>
+</div>
+</div>
+<script>
+var app = angular.module('studentApp', []);
+app.controller('studentController', function ($scope) {
+$scope.studentDetails = [];
+$scope.displayStudentDetails = function () {
+$scope.studentDetails = [];
+for (var i = 0; i < $scope.numberOfStudents; i++) {
+var student = {
+name: prompt('Enter the name of student ' + (i + 1)),
+cgpa: parseFloat(prompt('Enter the CGPA of student ' + (i + 1)))
+};
+$scope.studentDetails.push(student);
+}
+};
+});
+</script>
+</body>
+</html>
