@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="studentApp">
+<head>
+<title>Student Details App</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+</head>
+<body ng-controller="StudentController">
+<h1>Student Details App</h1>
+<div ng-repeat="student in students">
+<h3>{{ student.name | uppercase }}</h3>
+<p>Roll No: {{ student.rollNo }}</p>
+<p>Grade: {{ student.grade }}</p>
+<hr>
+</div>
+<script>
+var app = angular.module('studentApp', []);
+app.controller('StudentController', function ($scope) {
+$scope.students = [
+{ name: 'John Doe', rollNo: '001', grade: 'A' },
+{ name: 'Jane Smith', rollNo: '002', grade: 'B' },
+{ name: 'Bob Johnson', rollNo: '003', grade: 'C' }
+];
+});
+</script>
+</body>
+</html>
