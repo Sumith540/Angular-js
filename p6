@@ -1,58 +1,60 @@
 <!DOCTYPE html>
-<html ng-app="todoApp">
+<html lang="en" ng-app="todoApp">
 <head>
-<title>AngularJS ToDo App</title>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <meta charset="UTF-8">
+    <title>AngularJS Todo List</title>
+    <style>
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+        .completed {
+            text-decoration: line-through;
+        }
+    </style>
 </head>
 <body ng-controller="TodoController">
-<h2>ToDo List</h2>
-<form ng-submit="addTask()">
-<input type="text" ng-model="newTask" placeholder="Add a new task" required />
-<button type="submit">Add</button>
-</form>
-<ul>
-<li ng-repeat="task in tasks">
-<span>{{ task.name }}</span>
-<button ng-click="editTask(task)">Edit</button>
-<button ng-click="deleteTask(task)">Delete</button>
-</li>
-</ul>
-<div ng-show="editingTask">
-<h3>Edit Task</h3>
-<form ng-submit="updateTask()">
-<input type="text" ng-model="editingTask.name" required />
-<button type="submit">Update</button>
-<button type="button" ng-click="cancelEdit()">Cancel</button>
-</form>
-</div>
-<script>
-var app = angular.module('todoApp', []);
-app.controller('TodoController', function ($scope) {
-$scope.tasks = [];
-$scope.newTask = '';
-$scope.editingTask = null;
-$scope.addTask = function () {
-if ($scope.newTask.trim() !== '') {
-$scope.tasks.push({ name: $scope.newTask });
-$scope.newTask = '';
-}
-};
-$scope.editTask = function (task) {
-$scope.editingTask = angular.copy(task);
-};
-$scope.updateTask = function () {
-var index = $scope.tasks.indexOf($scope.editingTask);
-$scope.tasks[index] = $scope.editingTask;
-$scope.editingTask = null;
-};
-$scope.cancelEdit = function () {
-$scope.editingTask = null;
-};
-$scope.deleteTask = function (task) {
-var index = $scope.tasks.indexOf(task);
-$scope.tasks.splice(index, 1);
-};
-});
-</script>
+    <h1>Todo List</h1>
+    <form ng-submit="addTask()">
+        <input type="text" ng-model="newTask" placeholder="Add a new task" required>
+        <button type="submit">Add</button>
+    </form>
+    <ul>
+        <li ng-repeat="task in tasks">
+            <input type="checkbox" ng-model="task.completed">
+<span ng-class="{completed: task.completed}">{{ task.text }}</span>
+            <button ng-click="editTask(task)">Edit</button>
+            <button ng-click="deleteTask(task)">Delete</button>
+        </li>
+    </ul>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+        var app = angular.module('todoApp', []);
+        app.controller('TodoController', function($scope) {
+            $scope.tasks = [];
+            $scope.newTask = '';
+            $scope.addTask = function() {
+                if ($scope.newTask.trim() !== '') {
+                    $scope.tasks.push({ text: $scope.newTask, completed: false });
+                    $scope.newTask = '';
+                }
+            };
+            $scope.editTask = function(task) {
+                var editedTask = prompt('Edit task:', task.text);
+                if (editedTask !== null) {
+                    task.text = editedTask;
+                }
+            };
+            $scope.deleteTask = function(task) {
+                var index = $scope.tasks.indexOf(task);
+                if (index !== -1) {
+                    $scope.tasks.splice(index, 1);
+                }
+            };
+        });
+    </script>
 </body>
 </html>
